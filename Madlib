@@ -1,0 +1,6 @@
+noun = input("Tell me a funny noun")
+name = input("Name someone")
+verb = input("Tell me your favorite verb in past tense")
+verb2 = input("Tell me your second favorite verb in present tense")
+adjective = input("tell me an  adjective that describes yourself")
+print("yesterday {} played with a {} and {} with it. in the end {} said that it was {} and wanted to {} more with {}".format(name,noun,verb,name,adjective,verb2,noun))
