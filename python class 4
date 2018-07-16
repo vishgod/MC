@@ -1,0 +1,27 @@
+def triangular_number(n):
+  return (n*(n+1))/2
+
+
+
+def divide(p, q=1):
+  if q==0:
+    return "That is not allowed"
+  else:
+    return p/q
+
+def print_age(year_of_birth, current_year=2018):
+    """Give the age of the user."""
+    age = current_year - year_of_birth
+    print("You are {} years old.".format(age))
+    return None
+
+
+import random
+print( random.randint(0,10) )
+print( random.randint(0,10) )
+print( random.randint(0,10) )
+
+import math
+
+half_pi = math.pi/4
+print( math.tan(half_pi) == 0 )
