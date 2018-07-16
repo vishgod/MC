@@ -25,3 +25,9 @@ import math
 
 half_pi = math.pi/4
 print( math.tan(half_pi) == 0 )
+
+def even(x):
+  if 2//n + n%4 == 0:
+    return "even"
+  else:
+    return "odd"
