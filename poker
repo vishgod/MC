@@ -38,6 +38,9 @@ cards = list(itertools.product(ranks, suits))
 pocket = list(itertools.combinations(cards, 2))
 community = list(itertools.combinations(cards, 5))
 
+for x in range(3):
+
+
 sam_card = ["J", "C"]
 
 def rv(card):
