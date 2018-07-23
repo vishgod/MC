@@ -102,3 +102,34 @@ def print_card(card):
     suit = "♧"
   return (rank + suit)
  
+Hand = highest_card
+
+
+def spc_hand(x):
+  """See which poker hand you have"""
+  if pair(x) == royal_flush:
+    hand = royal_flushif
+
+  if all_equal(x) == True and is_consecutive(x) == True:
+    hand = straight_flush 
+
+  if pair(x) == four_of_a_kind:
+    hand = four_of_a_kind 
+
+  if pair(x) == full_house:
+    hand = full_house
+
+  if all_equal(x) == True:
+    hand = flush
+
+  if is_consecutive(x) == True:
+    hand = straight
+
+  if pair(x) == three_of_a_kind:
+    hand = three_of_a_kind
+
+  if pair(x) == double_pair:
+    hand = double_pair
+
+  if pair(x) == pair:
+    hand = pair
