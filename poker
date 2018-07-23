@@ -58,16 +58,20 @@ ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 cards = list(itertools.product(ranks, suits))
 pocket = list(itertools.combinations(cards, 2))
 community = list(itertools.combinations(cards, 5))
-seven_cards = []
-first_card_rank = (input("What is your first card rank?"))
-first_card_suit = (input("What is your first card suit?"))
-second_card_rank = (input("What is your second card rank?"))
-second_card_suit = (input("What is your second card suit?"))
+first_card = 1
+second_card = 1
 
-print("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
-first_card = ("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
-print("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
-second_card = ("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
+while first_card == second_card:
+  first_card_rank = (input("What is your first card rank?"))
+  first_card_suit = (input("What is your first card suit?"))
+  second_card_rank = (input("What is your second card rank?"))
+  second_card_suit = (input("What is your second card suit?"))
+  print("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
+  first_card = ("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
+  print("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
+  second_card = ("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
+
+
 a = random.choice(community)
 sam_card = ["J", "C"]
 
