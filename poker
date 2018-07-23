@@ -19,18 +19,40 @@ def is_consecutive(x):
       return False
   return True
 
+matches = {}
+
 def num_matches(x):
-  matches = {}
   for i in x:
     if i not in matches.keys():
       matches[i] = 1
     else:
       matches[i] = matches[i]+ 1
   return matches
-       
 
-  
-    
+def pair(x):
+  num_of_pairs = 0
+  num_of_threes = 0
+  num_of_fours = 0
+  for i in matches:
+    if matches[i] == 4:
+      num_of_fours += 1
+    if matches[i] == 3:
+      num_of_threes += 1
+    if matches[i] == 2:
+      num_of_pairs += 1
+  if num_of_fours >= 1:
+    return "FOUR OF A KIND!"
+  if num_of_threes >= 1 and num_of_pairs >= 1:
+    return "FULL HOUSE!"
+  if num_of_threes >= 1:
+    return "THREE OF A KIND!"
+  if num_of_pairs >= 2:
+    return "DOUBLE PAIR!"
+  if num_of_pairs >= 1:
+    return "PAIR"
+  return "TELL EVERYONE TO QUIT, CAUSE YOUR THE FLASH AND THE ARROW COMBINED!"
+ 
+
 
 suits = ["S", "H", "D", "C"]
 ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -38,7 +60,6 @@ cards = list(itertools.product(ranks, suits))
 pocket = list(itertools.combinations(cards, 2))
 community = list(itertools.combinations(cards, 5))
 
-for x in range(3):
 
 
 sam_card = ["J", "C"]
@@ -56,9 +77,20 @@ def rv(card):
   else:
     return int(rank)
 
+
+
+a = random.choice(community)
+print(a)
+for i in a:
+  rnk = (rv(i))
+  print(i, rnk)
+
+
+  #print(num_matches(random.choice(community)))
+  #print(pair(random.choice(community)))
+
+
 def print_card(card):
-  # rank = card[0]
-  # suit = card[1]
   rank, suit = card[:2]
   if suit == "S":
     suit = "♤"
@@ -69,3 +101,4 @@ def print_card(card):
   if suit == "C": 
     suit = "♧"
   return (rank + suit)
+ 
