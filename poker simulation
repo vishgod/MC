@@ -129,22 +129,32 @@ print(pair(rank_com))
 #card2 = input("What is your second card?")
 #print("Your hand is {} and {} and your community is {}".format(card1, card2, a))
 
-def spc_hand(x):
+def spc_hand(hand):
+  suit_com = []
+  for card in hand:
+    suit_com.append(card[1])
+  rank_com = []
+  for card in hand:
+    rank_com.append(rv(card))
+  #print(rank_com)
+  #print(all_equal(suit_com), is_consecutive(rank_com), pair(rank_com))
   if all_equal(suit_com) and is_consecutive(rank_com) and max(rank_com) == 14:
     return "ROYAL FLUSH!"
-  elif all_equal(suit_com) and is_consecutive(rank_com) and max(rank_com) != 14:
-    return "STRAIT FLUSH"
-  elif pair(rank_com) == "FOUR OF A KIND!":
+  elif all_equal(suit_com) and is_consecutive(rank_com):
+    return "straight flush"
+  elif types_of_pairs(rank_com) == "FOUR OF A KIND!":
     return "four of a kind"
-  elif pair(rank_com) == "FULL HOUSE!":
+  elif types_of_pairs(rank_com) == "FULL HOUSE!":
     return "full house"
-  elif all_equal(suit_com) and is_consecutive(rank_com) :
-    return "FLUSH"
+  elif all_equal(suit_com) :
+    return "flush"
   elif is_consecutive(rank_com):
-    return "strait"
-  elif pair(rank_com) == "DOUBLE PAIR!":
+    return "straight"
+  elif types_of_pairs(rank_com) == "THREE OF A KIND!":
+    return "three of a kind"
+  elif types_of_pairs(rank_com) == "DOUBLE PAIR!":
     return "double pair"
-  elif pair(rank_com) == "PAIR":
+  elif types_of_pairs(rank_com) == "PAIR":
     return "pair"
   else:
     return "high card"
