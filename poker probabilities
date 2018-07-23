@@ -1,0 +1,184 @@
+import itertools
+from collections import namedtuple
+import random
+
+#random.seed(12)
+
+def all_equal(x):
+  if len(set(x)) == 1:
+    return True
+  return False
+
+def all_different(x):
+  if len(set(x)) == len(x):
+    return True
+  return False
+
+def is_consecutive(x):
+  x = sorted(x)
+  for i in range(len(x)-1):
+    if x[i] != x[i+1]-1:
+      return False
+  return True
+
+def num_matches(int_hand):
+  matches = {}
+  for i in int_hand:
+    if i not in matches.keys():
+      matches[i] = 1
+    else:
+      matches[i] = matches[i]+ 1
+  return matches
+
+def types_of_pairs(int_hand):
+  matches = num_matches(int_hand)
+  num_of_pairs = 0
+  num_of_threes = 0
+  num_of_fours = 0
+  for i in matches:
+    if matches[i] == 4:
+      num_of_fours += 1
+    if matches[i] == 3:
+      num_of_threes += 1
+    if matches[i] == 2:
+      num_of_pairs += 1
+  if num_of_fours >= 1:
+    return "FOUR OF A KIND!"
+  if num_of_threes >= 1 and num_of_pairs >= 1:
+    return "FULL HOUSE!"
+  if num_of_threes >= 1:
+    return "THREE OF A KIND!"
+  if num_of_pairs >= 2:
+    return "DOUBLE PAIR!"
+  if num_of_pairs >= 1:
+    return "PAIR"
+  return "HIGH CARD"
+ 
+
+suits = ["S", "H", "D", "C"]
+ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+cards = list(itertools.product(ranks, suits))
+pocket = list(itertools.combinations(cards, 2))
+community = list(itertools.combinations(cards, 5))
+#seven_cards = []
+
+
+a = random.choice(community)
+sam_card = ["J", "C"]
+
+def rv(card):
+  rank = card[0]
+  if rank == "J":
+    return 11
+  elif rank == "Q":
+    return 12
+  elif rank == "K":
+    return 13
+  elif rank == "A":
+    return 14
+  else:
+    return int(rank)
+
+
+
+
+
+#def print_card(card):
+  #rank, suit = card[:2]
+  #if suit == "S":
+    #suit = "♤"
+  #if suit == "H":
+    #suit = "♡"
+  #if suit == "D":
+    #suit = "♢"
+  #if suit == "C": 
+    #suit = "♧"
+  #return (rank + suit)#
+  ###########################################################################
+
+
+  #if all_equal(x) == True and is_consecutive(x) == True
+
+#card1 = input("what is your first card?")
+#card2 = input("What is your second card?")
+#print("Your hand is {} and {} and your community is {}".format(card1, card2, a))
+
+def spc_hand(hand):
+  suit_com = []
+  for card in hand:
+    suit_com.append(card[1])
+  rank_com = []
+  for card in hand:
+    rank_com.append(rv(card))
+  #print(rank_com)
+  #print(all_equal(suit_com), is_consecutive(rank_com), pair(rank_com))
+  if all_equal(suit_com) and is_consecutive(rank_com) and max(rank_com) == 14:
+    return "ROYAL FLUSH!"
+  elif all_equal(suit_com) and is_consecutive(rank_com):
+    return "straight flush"
+  elif types_of_pairs(rank_com) == "FOUR OF A KIND!":
+    return "four of a kind"
+  elif types_of_pairs(rank_com) == "FULL HOUSE!":
+    return "full house"
+  elif all_equal(suit_com) :
+    return "flush"
+  elif is_consecutive(rank_com):
+    return "straight"
+  elif types_of_pairs(rank_com) == "THREE OF A KIND!":
+    return "three of a kind"
+  elif types_of_pairs(rank_com) == "DOUBLE PAIR!":
+    return "double pair"
+  elif types_of_pairs(rank_com) == "PAIR":
+    return "pair"
+  else:
+    return "high card"
+
+total_trials = 10
+
+#print(a)
+#print(spc_hand(a))
+
+rf_amount = 0
+sf_amount = 0
+four_amount = 0
+full_house_amount = 0
+flush_amount = 0
+straight_amount = 0
+triple_amount = 0
+two_pair_amount = 0
+pair_amount = 0
+high_card_amount = 0
+
+for i in range(100000):
+  a = random.choice(community)
+  if spc_hand(a) == "ROYAL FLUSH!":
+    rf_amount += 1
+  elif spc_hand(a) == "straight flush":
+    sf_amount += 1
+  elif spc_hand(a) == "four of a kind":
+    four_amount += 1
+  elif spc_hand(a) == "full house":
+    full_house_amount += 1
+  elif spc_hand(a) == "flush":
+    flush_amount += 1
+  elif spc_hand(a) == "straight":
+    straight_amount += 1
+  elif spc_hand(a) == "three of a kind":
+    triple_amount += 1
+  elif spc_hand(a) == "double pair":
+    two_pair_amount += 1
+  elif spc_hand(a) == "pair":
+    pair_amount += 1
+  else:
+    high_card_amount += 1
+
+print ("Royal Flush amount = {}" .format(rf_amount))
+print ("Straight Flush amount = {}" .format(sf_amount))
+print ("Four of a Kind amount = {}" .format(four_amount))
+print ("Full House amount = {}" .format(full_house_amount))
+print ("Flush amount = {}" .format(flush_amount))
+print ("Straight amount = {}" .format(straight_amount))
+print ("Three of a Kind amount = {}" .format(triple_amount))
+print ("Double Pair amount = {}" .format(two_pair_amount))
+print ("Pair amount = {}" .format(pair_amount))
+print ("High Card amount = {}" .format(high_card_amount))
