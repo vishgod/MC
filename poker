@@ -77,7 +77,13 @@ def rv(card):
   else:
     return int(rank)
 
+suit_com = []
 
+for i in a:
+  suit_com.append(rv(i))
+
+
+print(sv(sam_card))
 
 rank_com = []
 
@@ -111,4 +117,22 @@ print(pair(rank_com))
 #print("Your hand is {} and {} and your community is {}".format(card1, card2, a))
 
 def spc_hand(x):
-  if
+  if all_equal(suit_com) and is_consecutive(rank_com) and max(rank_com) == 14:
+    return "ROYAL FLUSH!"
+  elif all_equal(suit_com) and is_consecutive(rank_com) and max(rank_com) != 14:
+    return "STRAIT FLUSH"
+  elif pair(rank_com) == "FOUR OF A KIND!":
+    return "four of a kind"
+  elif pair(rank_com) == "FULL HOUSE!":
+    return "full house"
+  elif all_equal(suit_com) and is_consecutive(rank_com) :
+    return "FLUSH"
+  elif is_consecutive(rank_com):
+    return "strait"
+  elif pair(rank_com) == "DOUBLE PAIR!":
+    return "double pair"
+  elif pair(rank_com) == "PAIR":
+    return "pair"
+  else:
+    return "high card"
+  
