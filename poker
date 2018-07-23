@@ -2,7 +2,7 @@ import itertools
 from collections import namedtuple
 import random
 
-def all_equal(x):
+def all_equal(x):                   
   if len(set(x)) == 1:
     return True
   return False
@@ -58,9 +58,16 @@ ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 cards = list(itertools.product(ranks, suits))
 pocket = list(itertools.combinations(cards, 2))
 community = list(itertools.combinations(cards, 5))
-#seven_cards = []
+seven_cards = []
+first_card_rank = (input("What is your first card rank?"))
+first_card_suit = (input("What is your first card suit?"))
+second_card_rank = (input("What is your second card rank?"))
+second_card_suit = (input("What is your second card suit?"))
 
-
+print("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
+first_card = ("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
+print("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
+second_card = ("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
 a = random.choice(community)
 sam_card = ["J", "C"]
 
@@ -81,15 +88,17 @@ suit_com = []
 
 for i in a:
   suit_com.append(rv(i))
-
-
-print(sv(sam_card))
+suit_com.append((first_card_suit))
+suit_com.append((second_card_suit))
+print(rv(sam_card))
 
 rank_com = []
 
 for i in a:
   rank_com.append(rv(i))
 
+rank_com.append(rv(first_card_rank))
+rank_com.append(rv(second_card_rank))
 print(a)
 
 num_matches(rank_com)
@@ -135,4 +144,3 @@ def spc_hand(x):
     return "pair"
   else:
     return "high card"
-  
