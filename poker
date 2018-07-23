@@ -50,18 +50,18 @@ def pair(x):
     return "DOUBLE PAIR!"
   if num_of_pairs >= 1:
     return "PAIR"
-  return "TELL EVERYONE TO QUIT, CAUSE YOUR THE FLASH AND THE ARROW COMBINED!"
+  return "HIGH CARD"
  
-
 
 suits = ["S", "H", "D", "C"]
 ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 cards = list(itertools.product(ranks, suits))
 pocket = list(itertools.combinations(cards, 2))
 community = list(itertools.combinations(cards, 5))
+#seven_cards = []
 
 
-
+a = random.choice(community)
 sam_card = ["J", "C"]
 
 def rv(card):
@@ -79,57 +79,36 @@ def rv(card):
 
 
 
-a = random.choice(community)
-print(a)
+rank_com = []
+
 for i in a:
-  rnk = (rv(i))
-  print(i, rnk)
+  rank_com.append(rv(i))
+
+print(a)
+
+num_matches(rank_com)
+print(pair(rank_com))
 
 
-  #print(num_matches(random.choice(community)))
-  #print(pair(random.choice(community)))
+#def print_card(card):
+  #rank, suit = card[:2]
+  #if suit == "S":
+    #suit = "♤"
+  #if suit == "H":
+    #suit = "♡"
+  #if suit == "D":
+    #suit = "♢"
+  #if suit == "C": 
+    #suit = "♧"
+  #return (rank + suit)#
+  ###########################################################################
 
 
-def print_card(card):
-  rank, suit = card[:2]
-  if suit == "S":
-    suit = "♤"
-  if suit == "H":
-    suit = "♡"
-  if suit == "D":
-    suit = "♢"
-  if suit == "C": 
-    suit = "♧"
-  return (rank + suit)
- 
-Hand = highest_card
+  #if all_equal(x) == True and is_consecutive(x) == True
 
+#card1 = input("what is your first card?")
+#card2 = input("What is your second card?")
+#print("Your hand is {} and {} and your community is {}".format(card1, card2, a))
 
 def spc_hand(x):
-  """See which poker hand you have"""
-  if pair(x) == royal_flush:
-    hand = royal_flushif
-
-  if all_equal(x) == True and is_consecutive(x) == True:
-    hand = straight_flush 
-
-  if pair(x) == four_of_a_kind:
-    hand = four_of_a_kind 
-
-  if pair(x) == full_house:
-    hand = full_house
-
-  if all_equal(x) == True:
-    hand = flush
-
-  if is_consecutive(x) == True:
-    hand = straight
-
-  if pair(x) == three_of_a_kind:
-    hand = three_of_a_kind
-
-  if pair(x) == double_pair:
-    hand = double_pair
-
-  if pair(x) == pair:
-    hand = pair
+  if
