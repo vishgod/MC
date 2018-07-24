@@ -67,12 +67,12 @@ while first_card == second_card:
   second_card_rank = (input("What is your second card rank?"))
   second_card_suit = (input("What is your second card suit?"))
   print("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
-  first_card = ("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
+  first_card = (first_card_rank, first_card_suit)
   print("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
-  second_card = ("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
+  second_card = (second_card_rank, second_card_suit)
 
 
-a = random.choice(community)
+a = list(random.choice(community))
 sam_card = ["J", "C"]
 
 def rv(card):
@@ -92,8 +92,8 @@ suit_com = []
 
 for i in a:
   suit_com.append(rv(i))
-suit_com.append((first_card_suit))
-suit_com.append((second_card_suit))
+suit_com.append((first_card))
+suit_com.append((second_card))
 print(rv(sam_card))
 
 rank_com = []
@@ -101,12 +101,16 @@ rank_com = []
 for i in a:
   rank_com.append(rv(i))
 
-rank_com.append(rv(first_card_rank))
-rank_com.append(rv(second_card_rank))
+rank_com.append(rv(first_card))
+rank_com.append(rv(second_card))
 print(a)
 
+a.append((first_card))
+a.append((second_card))
+
+
 num_matches(rank_com)
-print(pair(rank_com))
+
 
 
 #def print_card(card):
@@ -142,19 +146,21 @@ def spc_hand(hand):
     return "ROYAL FLUSH!"
   elif all_equal(suit_com) and is_consecutive(rank_com):
     return "straight flush"
-  elif types_of_pairs(rank_com) == "FOUR OF A KIND!":
+  elif pair(rank_com) == "FOUR OF A KIND!":
     return "four of a kind"
-  elif types_of_pairs(rank_com) == "FULL HOUSE!":
+  elif pair(rank_com) == "FULL HOUSE!":
     return "full house"
   elif all_equal(suit_com) :
     return "flush"
   elif is_consecutive(rank_com):
     return "straight"
-  elif types_of_pairs(rank_com) == "THREE OF A KIND!":
+  elif pair(rank_com) == "THREE OF A KIND!":
     return "three of a kind"
-  elif types_of_pairs(rank_com) == "DOUBLE PAIR!":
+  elif pair(rank_com) == "DOUBLE PAIR!":
     return "double pair"
-  elif types_of_pairs(rank_com) == "PAIR":
+  elif pair(rank_com) == "PAIR":
     return "pair"
   else:
     return "high card"
+
+print(spc_hand(a))
