@@ -5,7 +5,12 @@ import random
 #random.seed(12)
 
 def all_equal(x):
-  if len(set(x)) == 1:
+  """Check for 5 of 7 flush."""
+  club_count = sum([1 for card in x if card == "C"])
+  diamond_count = sum([1 for card in x if card == "D"])
+  heart_count = sum([1 for card in x if card == "H"])
+  spade_count = sum([1 for card in x if card == "S"])
+  if max(club_count, diamond_count, heart_count, spade_count) >= 5:
     return True
   return False
 
@@ -16,22 +21,26 @@ def all_different(x):
 
 def is_consecutive(x):
   x = sorted(x)
-  for i in range(len(x)-1):
-    if x[i] != x[i+1]-1:
-      return False
-  return True
+  for start_i in range(3):
+    for i in range(5-1):
+      if x[i + start_i] != x[i+1 + start_i]-1:
+        break
+    else:
+      return True
+  return False
 
 def num_matches(int_hand):
   matches = {}
   for i in int_hand:
-    if i not in matches.keys():
-      matches[i] = 1
+    if i[0] not in matches.keys():
+      matches[i[0]] = 1
     else:
-      matches[i] = matches[i]+ 1
+      matches[i[0]] += 1
   return matches
 
 def types_of_pairs(int_hand):
   matches = num_matches(int_hand)
+  print(matches)
   num_of_pairs = 0
   num_of_threes = 0
   num_of_fours = 0
@@ -42,6 +51,7 @@ def types_of_pairs(int_hand):
       num_of_threes += 1
     if matches[i] == 2:
       num_of_pairs += 1
+  print(num_of_pairs)
   if num_of_fours >= 1:
     return "FOUR OF A KIND!"
   if num_of_threes >= 1 and num_of_pairs >= 1:
@@ -54,6 +64,9 @@ def types_of_pairs(int_hand):
     return "PAIR"
   return "HIGH CARD"
  
+print(types_of_pairs(((('2', 'S'), ('2', 'D'), ('9', 'D'), ('9', 'C'), ('J', 'D'), ('A', 'C'), ('A', 'S')))))
+#print(types_of_pairs(((('5', 'S'), ('6', 'H'), ('6', 'D'), ('7', 'S'), ('7', 'D'), ('A', 'C'), ('A', 'S'))))
+#print(types_of_pairs(((('2', 'C'), ('4', 'H'), ('4', 'C'), ('K', 'S'), ('K', 'H'), ('A', 'C'), ('A', 'S'))))
 
 suits = ["S", "H", "D", "C"]
 ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -78,7 +91,6 @@ def rv(card):
     return 14
   else:
     return int(rank)
-
 
 
 
@@ -116,27 +128,27 @@ def spc_hand(hand):
     return "ROYAL FLUSH!"
   elif all_equal(suit_com) and is_consecutive(rank_com):
     return "straight flush"
-  elif types_of_pairs(rank_com) == "FOUR OF A KIND!":
+  elif types_of_pairs(hand) == "FOUR OF A KIND!":
     return "four of a kind"
-  elif types_of_pairs(rank_com) == "FULL HOUSE!":
+  elif types_of_pairs(hand) == "FULL HOUSE!":
     return "full house"
   elif all_equal(suit_com) :
     return "flush"
   elif is_consecutive(rank_com):
     return "straight"
-  elif types_of_pairs(rank_com) == "THREE OF A KIND!":
+  elif types_of_pairs(hand) == "THREE OF A KIND!":
     return "three of a kind"
-  elif types_of_pairs(rank_com) == "DOUBLE PAIR!":
+  elif types_of_pairs(hand) == "DOUBLE PAIR!":
     return "double pair"
-  elif types_of_pairs(rank_com) == "PAIR":
+  elif types_of_pairs(hand) == "PAIR":
     return "pair"
   else:
     return "high card"
 
 total_trials = 10
 
-#print(a)
-#print(spc_hand(a))
+
+
 
 rf_amount = 0
 sf_amount = 0
@@ -149,28 +161,46 @@ two_pair_amount = 0
 pair_amount = 0
 high_card_amount = 0
 
-for i in range(100000):
+first_card = 1
+second_card = 1
+
+
+while first_card == second_card:
+  first_card_rank = (input("What is your first card rank?"))
+  first_card_suit = (input("What is your first card suit?"))
+  second_card_rank = (input("What is your second card rank?"))
+  second_card_suit = (input("What is your second card suit?"))
+  print("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
+  first_card = (first_card_rank, first_card_suit)
+  print("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
+  second_card = (second_card_rank, second_card_suit)
+  b = (first_card, second_card)
+print(b)
+for i in range(10000):
   a = random.choice(community)
-  if spc_hand(a) == "ROYAL FLUSH!":
+  ab = (a+b)
+  if spc_hand(ab) == "ROYAL FLUSH!":
     rf_amount += 1
-  elif spc_hand(a) == "straight flush":
+  elif spc_hand(ab) == "straight flush":
     sf_amount += 1
-  elif spc_hand(a) == "four of a kind":
+  elif spc_hand(ab) == "four of a kind":
     four_amount += 1
-  elif spc_hand(a) == "full house":
+  elif spc_hand(ab) == "full house":
     full_house_amount += 1
-  elif spc_hand(a) == "flush":
+  elif spc_hand(ab) == "flush":
     flush_amount += 1
-  elif spc_hand(a) == "straight":
+  elif spc_hand(ab) == "straight":
     straight_amount += 1
-  elif spc_hand(a) == "three of a kind":
+  elif spc_hand(ab) == "three of a kind":
     triple_amount += 1
-  elif spc_hand(a) == "double pair":
+  elif spc_hand(ab) == "double pair":
     two_pair_amount += 1
-  elif spc_hand(a) == "pair":
+  elif spc_hand(ab) == "pair":
     pair_amount += 1
   else:
     high_card_amount += 1
+
+
 
 print ("Royal Flush amount = {}" .format(rf_amount))
 print ("Straight Flush amount = {}" .format(sf_amount))
