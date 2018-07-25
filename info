@@ -1,0 +1,11 @@
+Royal Flush amount = 9
+Straight Flush amount = 32
+Four of a Kind amount = 169
+Full House amount = 2591
+Flush amount = 3032
+Straight amount = 3219
+Three of a Kind amount = 4778
+Double Pair amount = 23735
+Pair amount = 44843
+High Card amount = 17592
+Code took 125.81894946098328 seconds.
