@@ -4,8 +4,6 @@ import random
 import time
 start = time.time()
 
-#random.seed(12)
-
 def all_equal(x):
   """Check for 5 of 7 flush."""
   suit_count = {}
@@ -86,8 +84,6 @@ community = list(itertools.combinations(cards, 5))
 #seven_cards = []
 
 
-a = random.choice(community)
-sam_card = ["J", "C"]
 
 def rv(card):
   rank = card[0]
@@ -145,6 +141,7 @@ def spc_hand(hand):
   #print(all_equal(suit_com), is_consecutive(rank_com), pair(rank_com))
   if straight_equal(hand) and 10 in rank_com and 11 in rank_com and 12 in rank_com and 13 in rank_com and 14 in rank_com:
     return "ROYAL FLUSH!"
+    print(ab)
   elif straight_equal(hand):
     return "straight flush"
   elif types_of_pairs(hand) == "FOUR OF A KIND!":
@@ -184,8 +181,10 @@ while first_card == second_card:
   print("(('"+ second_card_rank + "', '" + second_card_suit + "'),")
   second_card = (second_card_rank, second_card_suit)
 
-a = random.choice(community)
 b = (first_card, second_card)
-ab = (a+b)
+ab = []
+while len(ab) < 7:
+  a = random.choice(community)
+  ab = (a+b)
 print(a)
 print(spc_hand(ab))
