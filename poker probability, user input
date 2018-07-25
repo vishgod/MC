@@ -188,23 +188,19 @@ first_card_suit = 2
 second_card_suit = 2
 
 while first_card == second_card:
-  while first_card_suit !="D" or "C" or "H" or "S":
-    while second_card_suit !="D" or "C" or "H" or "S":
-      while int(first_card_rank) < 2 or int(first_card_rank) > 10 or first_card_rank != "A" or "K" or "D" or "J":
-        while int(second_card_rank) < 2 or int(second_card_rank) > 10 or second_card_rank != "A" or "K" or "D" or "J":
-          first_card_rank = (input("What is your first card rank?"))
-          first_card_suit = (input("What is your first card suit?"))
-          second_card_rank = (input("What is your second card rank?"))
-          second_card_suit = (input("What is your second card suit?"))
-          print("(('"+ first_card_rank + "', '" + first_card_suit + "'),")
-          first_card = (first_card_rank, first_card_suit)
-          print("(('"+ second_card_rank + "', '" + second_card_suit + "'),")
-          second_card = (second_card_rank, second_card_suit)
+  first_card_rank = (input("What is your first card rank?"))
+  first_card_suit = (input("What is your first card suit?"))
+  second_card_rank = (input("What is your second card rank?"))
+  second_card_suit = (input("What is your second card suit?"))
+  print("(('"+ first_card_rank + "', '" + first_card_suit + "'),")
+  first_card = (first_card_rank, first_card_suit)
+  print("(('"+ second_card_rank + "', '" + second_card_suit + "'),")
+  second_card = (second_card_rank, second_card_suit)
 
 b = (first_card, second_card)
 print(b)
 
-for i in range(10000):
+for i in range(1000):
   a = random.choice(community)
   ab = (a+b)
   if spc_hand(ab) == "ROYAL FLUSH!":
