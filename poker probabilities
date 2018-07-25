@@ -1,17 +1,22 @@
 import itertools
 from collections import namedtuple
 import random
+import time
+start = time.time()
 
-#random.seed(12)
+random.seed(12)
 
 def all_equal(x):
   """Check for 5 of 7 flush."""
-  club_count = sum([1 for card in x if card == "C"])
-  diamond_count = sum([1 for card in x if card == "D"])
-  heart_count = sum([1 for card in x if card == "H"])
-  spade_count = sum([1 for card in x if card == "S"])
-  if max(club_count, diamond_count, heart_count, spade_count) >= 5:
-    return True
+  suit_count = {}
+  suit_count["C"] = sum([1 for card in x if card == "C"])
+  suit_count["D"] = sum([1 for card in x if card == "D"])
+  suit_count["H"] = sum([1 for card in x if card == "H"])
+  suit_count["S"] = sum([1 for card in x if card == "S"])
+  if max(suit_count.values()) >= 5:
+    for key in suit_count.keys():
+      if suit_count[key] >= 5:
+        return key 
   return False
 
 def all_different(x):
@@ -20,14 +25,19 @@ def all_different(x):
   return False
 
 def is_consecutive(x):
+  """ Check if x contains a straight.
+  x is a list of integers. e.g. [1,1,2,3,7]
+  """
   x = sorted(x)
-  for start_i in range(3):
-    for i in range(5-1):
+  #print(len(x), x)
+  for start_i in range( len(x)-4):
+    for i in range(4):
       if x[i + start_i] != x[i+1 + start_i]-1:
         break
     else:
       return True
   return False
+
 
 def num_matches(int_hand):
   matches = {}
@@ -40,18 +50,22 @@ def num_matches(int_hand):
 
 def types_of_pairs(int_hand):
   matches = num_matches(int_hand)
-  print(matches)
   num_of_pairs = 0
   num_of_threes = 0
   num_of_fours = 0
   for i in matches:
+    if matches[i] == 7:
+      num_of_fours += 1
+    if matches[i] == 6:
+      num_of_fours += 1
+    if matches[i] == 5:
+      num_of_fours += 1
     if matches[i] == 4:
       num_of_fours += 1
     if matches[i] == 3:
       num_of_threes += 1
     if matches[i] == 2:
       num_of_pairs += 1
-  print(num_of_pairs)
   if num_of_fours >= 1:
     return "FOUR OF A KIND!"
   if num_of_threes >= 1 and num_of_pairs >= 1:
@@ -64,10 +78,6 @@ def types_of_pairs(int_hand):
     return "PAIR"
   return "HIGH CARD"
  
-print(types_of_pairs(((('2', 'S'), ('2', 'D'), ('9', 'D'), ('9', 'C'), ('J', 'D'), ('A', 'C'), ('A', 'S')))))
-#print(types_of_pairs(((('5', 'S'), ('6', 'H'), ('6', 'D'), ('7', 'S'), ('7', 'D'), ('A', 'C'), ('A', 'S'))))
-#print(types_of_pairs(((('2', 'C'), ('4', 'H'), ('4', 'C'), ('K', 'S'), ('K', 'H'), ('A', 'C'), ('A', 'S'))))
-
 suits = ["S", "H", "D", "C"]
 ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 cards = list(itertools.product(ranks, suits))
@@ -95,6 +105,7 @@ def rv(card):
 
 
 
+
 #def print_card(card):
   #rank, suit = card[:2]
   #if suit == "S":
@@ -115,18 +126,26 @@ def rv(card):
 #card2 = input("What is your second card?")
 #print("Your hand is {} and {} and your community is {}".format(card1, card2, a))
 
+def straight_equal(x):
+  suit_com = [card[1] for card in x]
+  rank_com = [rv(card) for card in x]
+  if all_equal(suit_com):
+    flush_suit = all_equal(suit_com)
+    return is_consecutive([rv(card) for card in x if card[1] == flush_suit])
+  return False 
+
+#print(a)
+#print(straight_equal(a))
+
+
 def spc_hand(hand):
-  suit_com = []
-  for card in hand:
-    suit_com.append(card[1])
-  rank_com = []
-  for card in hand:
-    rank_com.append(rv(card))
+  suit_com = [card[1] for card in hand]
+  rank_com = [rv(card) for card in hand]
   #print(rank_com)
   #print(all_equal(suit_com), is_consecutive(rank_com), pair(rank_com))
-  if all_equal(suit_com) and is_consecutive(rank_com) and max(rank_com) == 14:
+  if straight_equal(hand) and 10 in rank_com and 11 in rank_com and 12 in rank_com and 13 in rank_com and 14 in rank_com:
     return "ROYAL FLUSH!"
-  elif all_equal(suit_com) and is_consecutive(rank_com):
+  elif straight_equal(hand):
     return "straight flush"
   elif types_of_pairs(hand) == "FOUR OF A KIND!":
     return "four of a kind"
@@ -164,24 +183,19 @@ high_card_amount = 0
 first_card = 1
 second_card = 1
 
-
-while first_card == second_card:
-  first_card_rank = (input("What is your first card rank?"))
-  first_card_suit = (input("What is your first card suit?"))
-  second_card_rank = (input("What is your second card rank?"))
-  second_card_suit = (input("What is your second card suit?"))
-  print("(('"+ first_card_rank + ", '" + first_card_suit + "'),")
-  first_card = (first_card_rank, first_card_suit)
-  print("(('"+ second_card_rank + ", '" + second_card_suit + "'),")
-  second_card = (second_card_rank, second_card_suit)
-  b = (first_card, second_card)
-print(b)
-for i in range(10000):
-  a = random.choice(community)
-  ab = (a+b)
+for i in range(100000):
+  ab = []
+  while len(set(ab)) != 7:
+    a = random.choice(community)
+    b = random.choice(pocket)
+    ab = (a+b)
+  #print(len(ab), ab)
+  #print(ab)
   if spc_hand(ab) == "ROYAL FLUSH!":
+    #print("RF", ab)
     rf_amount += 1
   elif spc_hand(ab) == "straight flush":
+    #print("SF", ab)
     sf_amount += 1
   elif spc_hand(ab) == "four of a kind":
     four_amount += 1
@@ -189,6 +203,7 @@ for i in range(10000):
     full_house_amount += 1
   elif spc_hand(ab) == "flush":
     flush_amount += 1
+    #print(ab)
   elif spc_hand(ab) == "straight":
     straight_amount += 1
   elif spc_hand(ab) == "three of a kind":
@@ -212,3 +227,5 @@ print ("Three of a Kind amount = {}" .format(triple_amount))
 print ("Double Pair amount = {}" .format(two_pair_amount))
 print ("Pair amount = {}" .format(pair_amount))
 print ("High Card amount = {}" .format(high_card_amount))
+
+print("Code took {} seconds.".format(time.time() - start))
