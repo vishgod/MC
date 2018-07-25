@@ -79,8 +79,8 @@ def types_of_pairs(int_hand):
 suits = ["S", "H", "D", "C"]
 ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 cards = list(itertools.product(ranks, suits))
-pocket = list(itertools.combinations(cards, 2))
-community = list(itertools.combinations(cards, 5))
+# pocket = list(itertools.combinations(cards, 2))
+
 #seven_cards = []
 
 
@@ -182,6 +182,8 @@ while first_card == second_card:
   second_card = (second_card_rank, second_card_suit)
 
 b = (first_card, second_card)
+
+community = list(itertools.combinations(set(cards).difference(set([first_card, second_card])), 5))
 ab = []
 while len(ab) < 7:
   a = random.choice(community)
