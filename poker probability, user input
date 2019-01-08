@@ -4,7 +4,9 @@ import random
 import time
 start = time.time()
 
-#random.seed(12)
+print("Please use the upper case letters associeated with the card")
+print("syntax for rank, 1 2 3 4 5 6 7 8 9 10 J Q K A")
+print("syntax for suit, S C H D")
 
 def all_equal(x):
   """Check for 5 of 7 flush."""
@@ -103,29 +105,6 @@ def rv(card):
     return int(rank)
 
 
-
-
-
-#def print_card(card):
-  #rank, suit = card[:2]
-  #if suit == "S":
-    #suit = "♤"
-  #if suit == "H":
-    #suit = "♡"
-  #if suit == "D":
-    #suit = "♢"
-  #if suit == "C": 
-    #suit = "♧"
-  #return (rank + suit)#
-  ###########################################################################
-
-
-  #if all_equal(x) == True and is_consecutive(x) == True
-
-#card1 = input("what is your first card?")
-#card2 = input("What is your second card?")
-#print("Your hand is {} and {} and your community is {}".format(card1, card2, a))
-
 def straight_equal(x):
   suit_com = [card[1] for card in x]
   rank_com = [rv(card) for card in x]
@@ -200,7 +179,7 @@ while first_card == second_card:
 b = (first_card, second_card)
 print(b)
 
-for i in range(1000):
+for i in range(10000):
   a = random.choice(community)
   ab = (a+b)
   if spc_hand(ab) == "ROYAL FLUSH!":
@@ -227,15 +206,13 @@ for i in range(1000):
 
 
 
-print ("Royal Flush amount = {}" .format(rf_amount))
-print ("Straight Flush amount = {}" .format(sf_amount))
-print ("Four of a Kind amount = {}" .format(four_amount))
-print ("Full House amount = {}" .format(full_house_amount))
-print ("Flush amount = {}" .format(flush_amount))
-print ("Straight amount = {}" .format(straight_amount))
-print ("Three of a Kind amount = {}" .format(triple_amount))
-print ("Double Pair amount = {}" .format(two_pair_amount))
-print ("Pair amount = {}" .format(pair_amount))
-print ("High Card amount = {}" .format(high_card_amount))
-
-print("Code took {} seconds.".format(time.time() - start))
+print ("Royal Flush percentage = {}%" .format(rf_amount/100))
+print ("Straight Flush percentage = {}%" .format(sf_amount/100))
+print ("Four of a Kind percentage = {}%" .format(four_amount/100))
+print ("Full House percentage = {}%" .format(full_house_amount/100))
+print ("Flush percentage = {}%" .format(flush_amount/100))
+print ("Straight percentage = {}%" .format(straight_amount/100))
+print ("Three of a Kind percentage = {}%" .format(triple_amount/100))
+print ("Double Pair percentage = {}%" .format(two_pair_amount/100))
+print ("Pair percentage = {}%" .format(pair_amount/100))
+print ("High Card percentage = {}%" .format(high_card_amount/100))
